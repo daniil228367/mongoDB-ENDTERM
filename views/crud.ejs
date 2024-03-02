@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Page</title>
+  
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        .teko-font {
+            font-family: "Teko", sans-serif;
+        }
+        
+        body {
+            background-image: url('https://images.pexels.com/photos/2473183/pexels-photo-2473183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+           
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 10px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            font-size: 25px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .hero-container {
+            background-image: url('https://images.pexels.com/photos/2473183/pexels-photo-2473183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white; 
+        }
+
+        .hero-content {
+            background-color: rgba(115, 89, 222, 0.5); 
+            padding: 20px;
+            width: 80vw; 
+            height: 60vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; 
+            border-radius: 30px;
+        }
+
+        .result-container {
+            background-color: rgba(115, 89, 222, 0.5);
+            padding: 20px;
+            width: 80vw; 
+            margin-top: 20px; 
+            border-radius: 30px;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 20px;
+        }
+
+        .btn-purple {
+            background-color: #800080; 
+            color: #fff; 
+            border-color: #800080; 
+        }
+
+        .btn-purple:hover {
+            background-color: #9400d3; 
+            border-color: #9400d3; 
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            color: white; 
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light navbar-dark teko-font  sticky-top" style="background-color: #5b55b1;">
+        <a class="navbar-brand" href="/">Laptop Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/laptops">Laptops</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/orders">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reviews">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/crud">CRUD</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid hero-container">
+        <div class="hero-content">
+            <h1>Create a new laptop</h1>
+            <form id="laptopForm" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">Brand:</label>
+                            <input type="text" class="form-control" id="brand" name="brand" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpu">CPU:</label>
+                            <input type="text" class="form-control" id="cpu" name="cpu" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="gpu">GPU:</label>
+                            <input type="text" class="form-control" id="gpu" name="gpu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ram">RAM:</label>
+                            <input type="text" class="form-control" id="ram" name="ram" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="number" class="form-control" id="price" name="price" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="photo">Photo URL:</label>
+                            <input type="text" class="form-control" id="photo" name="photo" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-purple">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container-fluid hero-container">
+        <div class="hero-content">
+            <h1>Update Laptop by ID</h1>
+            <form id="updateLaptopForm" method="PUT">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="updateLaptopId">Laptop ID:</label>
+                            <input type="text" class="form-control" id="updateLaptopId" name="laptopId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateName">Name:</label>
+                            <input type="text" class="form-control" id="updateName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateBrand">Brand:</label>
+                            <input type="text" class="form-control" id="updateBrand" name="brand" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="updateCpu">CPU:</label>
+                            <input type="text" class="form-control" id="updateCpu" name="cpu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateGpu">GPU:</label>
+                            <input type="text" class="form-control" id="updateGpu" name="gpu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateRam">RAM:</label>
+                            <input type="text" class="form-control" id="updateRam" name="ram" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="updatePrice">Price:</label>
+                            <input type="number" class="form-control" id="updatePrice" name="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updatePhoto">Photo URL:</label>
+                            <input type="text" class="form-control" id="updatePhoto" name="photo" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-purple">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container-fluid hero-container">
+        <div class="hero-content">
+            <h1>Get Laptop by ID</h1>
+            <form id="getLaptopForm" method="GET">
+                <div class="form-group">
+                    <label for="laptopId">Laptop ID:</label>
+                    <input type="text" class="form-control" id="laptopId" name="laptopId" required>
+                </div>
+                <button type="submit" class="btn btn-purple">Submit</button>
+            </form>
+            <button id="getAllLaptopsBtn" class="btn btn-purple mt-3">Get All</button>
+            <button id="deleteLaptopByIdBtn" class="btn btn-purple mt-3">Delete by ID</button>
+        </div>
+    </div>
+    
+    <div class="container-fluid hero-container" id="searchResultContainer">
+        <div id="searchResult" style="color: white; margin-top: 20px;"></div>
+    </div>
+    
+    
+    
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+         document.getElementById('updateLaptopForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); 
+
+        const laptopId = document.getElementById('updateLaptopId').value;
+        const name = document.getElementById('updateName').value;
+        const brand = document.getElementById('updateBrand').value;
+        const cpu = document.getElementById('updateCpu').value;
+        const gpu = document.getElementById('updateGpu').value;
+        const ram = document.getElementById('updateRam').value;
+        const price = document.getElementById('updatePrice').value;
+        const photo = document.getElementById('updatePhoto').value;
+
+        try {
+            const response = await fetch(`/api/laptops/${laptopId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, brand, cpu, gpu, ram, price, photo })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update laptop');
+            }
+
+            const data = await response.json();
+            console.log('Updated laptop:', data);
+
+            
+            this.reset();
+        } catch (error) {
+            console.error('Error updating laptop:', error.message);
+        }
+    });
+    </script>
+    <script>
+        document.getElementById('deleteLaptopByIdBtn').addEventListener('click', async function(event) {
+    event.preventDefault(); 
+
+    const laptopId = document.getElementById('laptopId').value;
+
+    try {
+        const response = await fetch(`/api/laptops/${laptopId}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete laptop');
+        }
+
+        const data = await response.json();
+        console.log('Laptop deleted:', data);
+        
+       
+        const container = document.getElementById('searchResultContainer');
+        container.innerHTML = `<div class="alert alert-success" role="alert">Laptop with ID ${laptopId} deleted successfully.</div>`;
+    } catch (error) {
+        console.error('Error deleting laptop:', error.message);
+       
+        const container = document.getElementById('searchResultContainer');
+        container.innerHTML = `<div class="alert alert-danger" role="alert">Error deleting laptop: ${error.message}</div>`;
+    }
+});
+    </script>
+    <script>
+        document.getElementById('laptopForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+    
+            const formData = new FormData(this); 
+            const name = formData.get('name');
+            const brand = formData.get('brand');
+            const cpu = formData.get('cpu');
+            const gpu = formData.get('gpu');
+            const ram = formData.get('ram');
+            const price = formData.get('price');
+            const photo = formData.get('photo');
+    
+            try {
+                const response = await fetch('/api/laptops', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, brand, cpu, gpu, ram, price, photo })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to save laptop');
+                }
+    
+                const data = await response.json();
+                console.log('New laptop saved:', data);
+    
+                
+                this.reset();
+            } catch (error) {
+                console.error('Error saving laptop:', error.message);
+            }
+        });
+    </script>
+
+<script>
+    document.getElementById('getLaptopForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); 
+
+        const laptopId = document.getElementById('laptopId').value;
+
+        try {
+            const response = await fetch(`/api/laptops/${laptopId}`);
+
+            if (!response.ok) {
+                throw new Error('Failed to get laptop');
+            }
+
+            const data = await response.json();
+            console.log('Laptop details:', data);
+            
+            
+            displayLaptopDetails(data);
+        } catch (error) {
+            console.error('Error getting laptop:', error.message);
+        }
+    });
+
+    document.getElementById('getAllLaptopsBtn').addEventListener('click', async function(event) {
+        event.preventDefault(); 
+
+        try {
+            const response = await fetch(`/api/laptops`);
+
+            if (!response.ok) {
+                throw new Error('Failed to get all laptops');
+            }
+
+            const data = await response.json();
+            console.log('All Laptops:', data);
+            
+            
+            displayAllLaptops(data);
+        } catch (error) {
+            console.error('Error getting all laptops:', error.message);
+        }
+    });
+
+    function displayLaptopDetails(laptop) {
+    const container = document.getElementById('searchResult');
+    container.innerHTML = `
+        <div class="container-fluid hero-container">
+            <div class="hero-content">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Property</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>${laptop.name}</td>
+                        </tr>
+                        <tr>
+                            <td>Brand</td>
+                            <td>${laptop.brand}</td>
+                        </tr>
+                        <tr>
+                            <td>CPU</td>
+                            <td>${laptop.cpu}</td>
+                        </tr>
+                        <tr>
+                            <td>GPU</td>
+                            <td>${laptop.gpu}</td>
+                        </tr>
+                        <tr>
+                            <td>RAM</td>
+                            <td>${laptop.ram}</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>${laptop.price}</td>
+                        </tr>
+                        <tr>
+                            <td>Photo</td>
+                            <td><img src="${laptop.photo}" alt="Laptop Photo" style="max-width: 200px;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+}
+
+
+function displayAllLaptops(laptops) {
+    const container = document.getElementById('searchResult');
+    container.innerHTML = `
+        <div class="container-fluid hero-container">
+            <div class="hero-content">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Brand</th>
+                            <th scope="col">CPU</th>
+                            <th scope="col">GPU</th>
+                            <th scope="col">RAM</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Photo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${laptops.map(laptop => `
+                            <tr>
+                                <td>${laptop._id}</td>
+                                <td>${laptop.name}</td>
+                                <td>${laptop.brand}</td>
+                                <td>${laptop.cpu}</td>
+                                <td>${laptop.gpu}</td>
+                                <td>${laptop.ram}</td>
+                                <td>${laptop.price}</td>
+                                <td><img src="${laptop.photo}" alt="Laptop Photo" style="max-width: 100px;"></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+}
+</script>
+    
+</body>
+</html>

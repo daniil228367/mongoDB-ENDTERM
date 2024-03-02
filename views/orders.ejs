@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Page</title>
+  
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        .teko-font {
+            font-family: "Teko", sans-serif;
+        }
+        
+        body {
+            background-image: url('https://images.pexels.com/photos/2473183/pexels-photo-2473183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+           
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-item {
+            margin-right: 10px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            font-size: 25px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .hero-container {
+            background-image: url('https://images.pexels.com/photos/2473183/pexels-photo-2473183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white; 
+        }
+
+        .hero-content {
+            background-color: rgba(115, 89, 222, 0.5); 
+            padding: 20px;
+            width: 80vw; 
+            height: 60vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 30px;
+        }
+
+        .result-container {
+            background-color: rgba(115, 89, 222, 0.5); 
+            padding: 20px;
+            width: 80vw; 
+            margin-top: 20px;
+            border-radius: 30px;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 20px;
+        }
+
+        .btn-purple {
+            background-color: #800080; 
+            color: #fff; 
+            border-color: #800080; 
+        }
+
+        .btn-purple:hover {
+            background-color: #9400d3;
+            border-color: #9400d3; 
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            color: white; 
+        
+        }
+        
+        .table-container {
+    margin: auto;
+    width: 80%;
+}
+
+
+    </style>
+    
+
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light navbar-dark teko-font sticky-top" style="background-color: #5b55b1;">
+
+
+        <a class="navbar-brand" href="/">Laptop Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="/laptops">Laptops</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/orders">Orders</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/reviews">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/crud">CRUD</a> 
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container form-container">
+        <form id="orderForm">
+            <div class="form-group">
+                <label class="text-white" for="laptopSelect">Select Laptop:</label>
+                <select class="form-control" id="laptopSelect">
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="customerName">Customer Name:</label>
+                <input type="text" class="form-control" id="customerName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="quantity">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" placeholder="Enter quantity">
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="price">Price:</label>
+                <input type="number" class="form-control" id="price" placeholder="Enter price">
+            </div>
+            <div class="form-group">
+                <label class="text-white" for="orderDate">Order Date:</label>
+                <input type="date" class="form-control" id="orderDate">
+            </div>
+            <button type="submit" class="btn btn-purple">Buy Laptop</button>
+        </form>
+    </div>
+
+    <div class="container text-center mt-5">
+        <button id="showAllOrdersBtn" class="btn btn-purple btn-lg">Show All Orders</button>
+    </div>
+    
+
+<div class="container text-center mt-5">
+<div class="result-container">
+    <table id="ordersTable" class="table">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Email</th>
+                <th>Laptop</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Order Date</th>
+            </tr>
+        </thead>
+        <tbody id="ordersTableBody">
+            
+        </tbody>
+    </table>
+</div>
+</div>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); 
+    
+           
+            const customerName = document.getElementById('customerName').value;
+            const email = document.getElementById('email').value;
+            const laptopId = document.getElementById('laptopSelect').value;
+            const quantity = document.getElementById('quantity').value;
+            const price = document.getElementById('price').value;
+            const orderDate = document.getElementById('orderDate').value;
+    
+            try {
+                const response = await fetch('/api/save-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ customerName, email, laptopId, quantity, price, orderDate })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to save order');
+                }
+    
+                const data = await response.json();
+                console.log('Saved order:', data);
+    
+                
+                this.reset();
+            } catch (error) {
+                console.error('Error saving order:', error.message);
+            }
+        });
+    </script>
+
+    <script>
+        
+document.getElementById('showAllOrdersBtn').addEventListener('click', async function() {
+    try {
+        
+        const response = await axios.get('/api/orders');
+
+        
+        const orders = response.data;
+
+       
+        document.getElementById('ordersTableBody').innerHTML = '';
+
+        
+        orders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.customerName}</td>
+                <td>${order.customerEmail}</td>
+                <td>${order.laptop}</td>
+                <td>${order.quantity}</td>
+                <td>${order.totalPrice}</td>
+                <td>${new Date(order.orderDate).toLocaleDateString()}</td>
+            `;
+            document.getElementById('ordersTableBody').appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching orders:', error.message);
+    }
+});
+
+    </script>
+    
+    
+    
+    
+        
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    
+    <script>
+        async function getLaptops() {
+            try {
+                const response = await axios.get('/api/laptops');
+                return response.data; 
+            } catch (error) {
+                console.error('Error getting laptops:', error.message);
+                return []; 
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const laptops = await getLaptops();
+                const laptopSelect = document.getElementById('laptopSelect');
+                
+                
+                laptops.forEach(laptop => {
+                    const option = document.createElement('option');
+                    option.value = laptop._id;
+                    option.textContent = laptop.name;
+                    laptopSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error:', error.message);
+            }
+        });
+    </script>
+    </body>
+</html>    
